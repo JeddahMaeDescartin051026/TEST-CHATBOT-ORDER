@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f8f1e9" />
+  <title>Account — CJ Finds</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="category.css" />
+  <link rel="stylesheet" href="account.css" />
+</head>
+<body>
+  <header class="site-header">
+    <button class="icon-button menu-toggle" aria-label="Open navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <a class="brand" href="index.html" aria-label="CJ Finds home">
+      <span class="brand-leaf" aria-hidden="true">✦</span>
+      <span>CJ Finds</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="women.html">Women</a>
+      <a href="men.html">Men</a>
+      <a href="accessories.html">Accessories</a>
+      <a href="index.html#featured">New arrivals</a>
+    </nav>
+
+    <div class="header-actions">
+      <a class="icon-button fav-toggle" href="favorites.html" aria-label="Open favorites">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.4s-7.6-4.7-9.2-9.5C1.7 7.6 3.7 4.6 6.9 4.6c2 0 3.5 1.1 5.1 3.1 1.6-2 3.1-3.1 5.1-3.1 3.2 0 5.2 3 4.1 6.3-1.6 4.8-9.2 9.5-9.2 9.5Z"></path></svg>
+        <span class="fav-count is-zero" aria-live="polite">0</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="mobile-menu" hidden>
+    <a href="index.html">Home</a><a href="women.html">Women</a><a href="men.html">Men</a><a href="accessories.html">Accessories</a><a href="index.html#featured">New arrivals</a>
+  </div>
+
+  <main class="account-page">
+    <section class="auth-card" aria-live="polite">
+
+      <!-- 1. Logged out: sign up / log in -->
+      <div id="panel-form">
+        <p class="eyebrow">Welcome</p>
+        <h1 id="form-title">Create your account</h1>
+        <p class="auth-lead" id="form-lead">Verify your email once, then shop and order with us.</p>
+
+        <div class="auth-tabs" role="tablist">
+          <button type="button" class="auth-tab active" data-mode="signup" role="tab">Create account</button>
+          <button type="button" class="auth-tab" data-mode="login" role="tab">Log in</button>
+        </div>
+
+        <form id="auth-form" novalidate>
+          <label for="email">Email</label>
+          <input id="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required />
+          <label for="password">Password</label>
+          <input id="password" type="password" autocomplete="new-password" minlength="6" placeholder="At least 6 characters" required />
+          <button class="primary-button" id="submit" type="submit">Create account</button>
+          <button class="link-button" id="forgot" type="button" hidden>Forgot your password?</button>
+        </form>
+      </div>
+
+      <!-- 2. Signed in but email not verified yet -->
+      <div id="panel-verify" hidden>
+        <p class="eyebrow">One more step</p>
+        <h1>Check your inbox</h1>
+        <p class="auth-lead">We sent a verification link to <strong id="verify-email"></strong>. Open it, then come back here. Don’t see it? Check your spam folder.</p>
+        <button class="primary-button" id="btn-verified" type="button">I’ve verified my email</button>
+        <button class="secondary-button" id="btn-resend" type="button">Resend email</button>
+        <button class="link-button" id="btn-switch" type="button">Use a different email</button>
+      </div>
+
+      <!-- 3. Verified -->
+      <div id="panel-done" hidden>
+        <p class="eyebrow">You’re all set</p>
+        <h1>Welcome to CJ Finds</h1>
+        <p class="auth-lead">Signed in as <strong id="done-email"></strong>. Your email is verified, so you can place orders.</p>
+        <a class="primary-button" id="btn-continue" href="index.html">Continue shopping</a>
+        <button class="link-button" id="btn-logout" type="button">Log out</button>
+      </div>
+
+      <p class="auth-message" id="msg" role="status"></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="footer-brand" href="index.html">CJ Finds</a>
+    <p>Everyday pieces, thoughtfully found.</p>
+    <div class="footer-links"><a href="women.html">Women</a><a href="men.html">Men</a><a href="accessories.html">Accessories</a><a href="mailto:hello@cjfinds.example">Contact</a></div>
+    <small>© <span id="year"></span> CJ Finds. Curated with care.</small>
+  </footer>
+
+  <div class="toast" role="status" aria-live="polite"></div>
+  <script src="products.js" defer></script>
+  <script src="favorites.js" defer></script>
+  <script type="module" src="account.js"></script>
+</body>
+</html>

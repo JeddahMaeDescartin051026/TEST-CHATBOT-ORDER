@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f8f1e9" />
+  <title>Accessories — CJ Finds</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="category.css" />
+</head>
+<body data-page="accessories">
+  <header class="site-header">
+    <button class="icon-button menu-toggle" aria-label="Open navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <a class="brand" href="index.html" aria-label="CJ Finds home">
+      <span class="brand-leaf" aria-hidden="true">✦</span>
+      <span>CJ Finds</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="women.html">Women</a>
+      <a href="men.html">Men</a>
+      <a href="accessories.html">Accessories</a>
+      <a href="index.html#featured">New arrivals</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-button search-toggle" aria-label="Search products" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="7.2"></circle><path d="m16.2 16.2 5 5"></path></svg>
+      </button>
+      <a class="icon-button fav-toggle" href="favorites.html" aria-label="Open favorites">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.4s-7.6-4.7-9.2-9.5C1.7 7.6 3.7 4.6 6.9 4.6c2 0 3.5 1.1 5.1 3.1 1.6-2 3.1-3.1 5.1-3.1 3.2 0 5.2 3 4.1 6.3-1.6 4.8-9.2 9.5-9.2 9.5Z"></path></svg>
+        <span class="fav-count is-zero" aria-live="polite">0</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="mobile-menu" hidden>
+    <a href="index.html">Home</a><a href="women.html">Women</a><a href="men.html">Men</a><a href="accessories.html">Accessories</a><a href="index.html#featured">New arrivals</a>
+  </div>
+  <form class="search-panel" role="search" hidden>
+    <label for="search-input">Find your next favorite</label>
+    <div class="search-row"><input id="search-input" type="search" placeholder="Search accessories…" /><button type="submit">Search</button></div>
+    <p class="search-message" aria-live="polite"></p>
+  </form>
+
+  <main>
+    <section class="page-hero accessories" aria-label="Accessories collection">
+      <div class="page-hero-image" role="img" aria-label="Accessories collection"></div>
+      <div class="page-hero-copy">
+        <p class="breadcrumb"><a href="index.html">Home</a> / Accessories</p>
+        <h1>Accessories</h1>
+        <p class="lead">Bags, belts and finishing touches worth finding.</p>
+      </div>
+    </section>
+
+    <div class="category-layout">
+      <section class="catalog" id="catalog">
+        <div class="section-heading">
+          <div><p class="eyebrow">Thoughtfully selected</p><h2></h2></div>
+          <span class="result-count" aria-live="polite"></span>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-label">Style</span>
+          <div class="filter-row" role="group" aria-label="Filter by style">
+            <button class="filter-chip active" data-filter="all">All</button>
+            <button class="filter-chip" data-filter="casual">Casual</button>
+            <button class="filter-chip" data-filter="formal">Formal</button>
+            <button class="filter-chip" data-filter="sports">Sports</button>
+          </div>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">Price</span>
+          <div class="filter-row" role="group" aria-label="Filter by price">
+            <button class="filter-chip active" data-price="all">Any</button>
+            <button class="filter-chip" data-price="199">₱199</button>
+            <button class="filter-chip" data-price="299">₱299</button>
+            <button class="filter-chip" data-price="399">₱399</button>
+            <button class="filter-chip" data-price="499">₱499</button>
+          </div>
+        </div>
+
+        <div class="product-grid"></div>
+      </section>
+
+      <aside class="cart-panel panel" id="cart-panel">
+        <div class="cart-heading"><div><p class="eyebrow">Your selection</p><h2>Shopping bag <span class="bag-heading-count">(0)</span></h2></div><span class="bag-icon">♧</span></div>
+        <div class="cart-items"><p class="empty-cart">Your bag is waiting for something lovely.</p></div>
+        <div class="cart-summary">
+          <div><span>Subtotal</span><strong class="subtotal">₱0</strong></div>
+          <div><span>Estimated total</span><strong class="total">₱0</strong></div>
+        </div>
+        <button class="checkout-button" disabled>♧ &nbsp; Continue to checkout</button>
+        <p class="pay-note">QR payment</p>
+      </aside>
+    </div>
+
+    <nav class="other-categories" aria-label="Browse other categories">
+      <a href="women.html">Women</a>
+      <a href="men.html">Men</a>
+      <a href="accessories.html" class="current" aria-current="page">Accessories</a>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <a class="footer-brand" href="index.html">CJ Finds</a>
+    <p>Everyday pieces, thoughtfully found.</p>
+    <div class="footer-links"><a href="women.html">Women</a><a href="men.html">Men</a><a href="accessories.html">Accessories</a><a href="mailto:hello@cjfinds.example">Contact</a></div>
+    <small>© <span id="year"></span> CJ Finds. Curated with care.</small>
+  </footer>
+
+  <div class="toast" role="status" aria-live="polite"></div>
+  <script src="bag-reset.js"></script>
+  <script src="one-stock.js"></script>
+  <script src="products.js"></script>
+  <script src="shop.js"></script>
+  <script src="bag.js" defer></script>
+  <script src="bag-sync.js" defer></script>
+  <script src="product-links.js" defer></script>
+  <script src="favorites.js" defer></script>
+  <script src="header-scroll.js" defer></script>
+  <script src="chat-faq.js" defer></script>
+  <script src="chatbot.js" defer></script>
+  </body>
+  </html>

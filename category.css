@@ -1,0 +1,61 @@
+/* Category pages (women.html, men.html, accessories.html) — extends style.css */
+.page-hero { margin: 0 2.1%; min-height: clamp(190px, 26vw, 300px); border-radius: 5px; overflow: hidden; position: relative; isolation: isolate; display: flex; align-items: center; background: #eedbd6; }
+.page-hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(246,229,224,.97) 0%, rgba(246,229,224,.88) 40%, rgba(246,229,224,.1) 75%); }
+.page-hero-image { position: absolute; inset: 0 0 0 42%; z-index: -2; background-size: cover; background-position: center 35%; }
+.page-hero-copy { padding: clamp(24px, 5vw, 80px); }
+.breadcrumb { margin: 0 0 12px; font-size: 11px; letter-spacing: .08em; color: var(--muted); }
+.breadcrumb a { border-bottom: 1px solid var(--line); }
+.page-hero h1 { font-size: clamp(44px, 7vw, 88px); }
+.page-hero p.lead { margin: 14px 0 0; max-width: 420px; font-size: clamp(13px, 1.5vw, 17px); line-height: 1.6; color: #805b65; }
+.page-hero.women .page-hero-image {
+  background-image: url("HOMEPAGE_IMAGES/WOMEN.png");
+  background-size: auto 300%;
+  background-position: center 31.25%;
+  background-repeat: no-repeat;
+}
+.page-hero.men .page-hero-image {
+  background-image: url("HOMEPAGE_IMAGES/MEN.png");
+  background-size: auto 188%;
+  background-position: center 90%;
+  background-repeat: no-repeat;
+}
+.page-hero.accessories .page-hero-image {
+  background-image: url("HOMEPAGE_IMAGES/ACCESSORIES.jpg");
+  background-size: auto 400%;
+  background-position: center 40%;
+  background-repeat: no-repeat;
+}
+
+.category-layout { max-width: 1320px; margin: 32px auto 0; padding: 0 clamp(22px, 5vw, 72px) 70px; display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 20px; align-items: start; }
+.catalog { background: rgba(255,254,250,.56); border-radius: 28px; padding: clamp(22px, 3vw, 40px); }
+.catalog .section-heading h2 { font-size: clamp(30px, 3.6vw, 44px); }
+.result-count { font-size: 12px; color: var(--muted); padding-bottom: 8px; }
+.filter-group { margin-top: 22px; }
+.filter-group + .filter-group { margin-top: 12px; }
+.filter-label { display: block; margin-bottom: 8px; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; font-weight: 600; color: var(--sage-dark); }
+.filter-group .filter-row { margin: 0; }
+.catalog .product-grid { margin-top: 24px; }
+.catalog .product-grid { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+.product-tag { display: inline-block; margin-top: 6px; padding: 2px 8px; border-radius: 999px; background: var(--mint-deep); font-size: 9px; letter-spacing: .06em; text-transform: uppercase; color: var(--sage-dark); }
+.no-results { grid-column: 1 / -1; padding: 30px 0; text-align: center; color: var(--muted); font-size: 13px; }
+.category-layout .cart-panel { position: sticky; top: 16px; }
+.pay-note { margin: 10px 0 0; text-align: center; font-size: 10px; color: var(--muted); }
+.other-categories { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; padding: 0 22px 50px; }
+.other-categories a { padding: 11px 22px; border: 1px solid var(--line); border-radius: 999px; font-size: 12px; background: var(--warm-white); transition: background .2s; }
+.other-categories a:hover { background: var(--mint-deep); }
+.other-categories a.current { background: var(--sage-dark); color: #fff; border-color: var(--sage-dark); pointer-events: none; }
+
+@media (max-width: 900px) {
+  .category-layout { grid-template-columns: 1fr; }
+  .category-layout .cart-panel { position: static; }
+}
+@media (max-width: 600px) {
+  .page-hero { margin: 0 12px; }
+  .page-hero-image { left: 35%; }
+  .category-layout { padding: 0 14px 45px; margin-top: 22px; }
+  .catalog { padding: 22px 14px; border-radius: 20px; }
+  .catalog .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+}
+@media (max-width: 370px) {
+  .catalog .product-grid { grid-template-columns: 1fr; }
+}

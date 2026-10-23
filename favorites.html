@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f8f1e9" />
+  <title>Your favorites — CJ Finds</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="category.css" />
+  <link rel="stylesheet" href="favorites.css" />
+</head>
+<body>
+  <header class="site-header">
+    <button class="icon-button menu-toggle" aria-label="Open navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <a class="brand" href="index.html" aria-label="CJ Finds home">
+      <span class="brand-leaf" aria-hidden="true">✦</span>
+      <span>CJ Finds</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="women.html">Women</a>
+      <a href="men.html">Men</a>
+      <a href="accessories.html">Accessories</a>
+      <a href="index.html#featured">New arrivals</a>
+    </nav>
+
+    <div class="header-actions">
+      <a class="icon-button fav-toggle" href="favorites.html" aria-label="Open favorites" aria-current="page">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.4s-7.6-4.7-9.2-9.5C1.7 7.6 3.7 4.6 6.9 4.6c2 0 3.5 1.1 5.1 3.1 1.6-2 3.1-3.1 5.1-3.1 3.2 0 5.2 3 4.1 6.3-1.6 4.8-9.2 9.5-9.2 9.5Z"></path></svg>
+        <span class="fav-count is-zero" aria-live="polite">0</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="mobile-menu" hidden>
+    <a href="index.html">Home</a><a href="women.html">Women</a><a href="men.html">Men</a><a href="accessories.html">Accessories</a><a href="index.html#featured">New arrivals</a>
+  </div>
+
+  <main class="fav-page">
+    <section class="fav-wrap" aria-labelledby="fav-title">
+      <p class="breadcrumb"><a href="index.html">Home</a> / Favorites</p>
+      <h1 id="fav-title">Your favorites</h1>
+      <p class="fav-lead">Pieces you've hearted are saved on this device. Add them to your bag whenever you're ready to order.</p>
+
+      <div class="fav-toolbar" id="fav-toolbar" hidden>
+        <span class="result-count" id="fav-count" aria-live="polite"></span>
+        <div class="fav-actions">
+          <button class="fav-btn" id="fav-add-all" type="button">Add all available to bag</button>
+          <a class="fav-btn secondary" href="index.html#cart-panel">Go to my bag →</a>
+        </div>
+      </div>
+      <p class="fav-sold-note" id="fav-sold-note" hidden>Pieces tagged SOLD have found a new home and can no longer be ordered.</p>
+
+      <div class="product-grid" id="fav-grid" hidden></div>
+
+      <div class="fav-empty" id="fav-empty" hidden>
+        <p class="fav-empty-heart" aria-hidden="true">♡</p>
+        <h2>No favorites yet</h2>
+        <p>Tap the heart on any piece to save it here for later.</p>
+        <div class="fav-actions">
+          <a class="fav-btn secondary" href="women.html">Shop Women</a>
+          <a class="fav-btn secondary" href="men.html">Shop Men</a>
+          <a class="fav-btn secondary" href="accessories.html">Shop Accessories</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="footer-brand" href="index.html">CJ Finds</a>
+    <p>Everyday pieces, thoughtfully found.</p>
+    <div class="footer-links"><a href="women.html">Women</a><a href="men.html">Men</a><a href="accessories.html">Accessories</a><a href="mailto:hello@cjfinds.example">Contact</a></div>
+    <small>© <span id="year"></span> CJ Finds. Curated with care.</small>
+  </footer>
+
+  <div class="toast" role="status" aria-live="polite"></div>
+  <script src="bag-reset.js"></script>
+  <script src="products.js"></script>
+  <script src="bag.js" defer></script>
+  <script src="product-links.js" defer></script>
+  <script src="favorites.js" defer></script>
+  <script src="header-scroll.js" defer></script>
+  <script src="chat-faq.js" defer></script>
+  <script src="chatbot.js" defer></script>
+</body>
+</html>

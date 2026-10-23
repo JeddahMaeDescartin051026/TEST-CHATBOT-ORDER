@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkout | CJ Finds</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="delivery-btn.css">
+  <style>
+    .back-link { justify-self: start; width: fit-content; padding-bottom: 4px; border-bottom: 1px solid var(--sage); font-size: 12px; }
+    .checkout { max-width: 1100px; margin: 0 auto; padding: 12px clamp(18px, 5vw, 56px) 70px; }
+    .checkout-intro { max-width: 560px; margin-bottom: 28px; }
+    .checkout h1 { font-size: clamp(40px, 5.5vw, 60px); line-height: 1; }
+    .checkout-intro p { margin: 14px 0 0; font-size: 15px; line-height: 1.6; color: #805b65; }
+    .checkout-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(280px, .9fr); gap: 20px; align-items: start; }
+    .checkout .panel { padding: clamp(22px, 3vw, 34px); }
+    .checkout h2 { margin: 0 0 20px; font-size: 26px; letter-spacing: -.02em; }
+    .summary-panel { position: sticky; top: 16px; }
+
+    .field { margin-bottom: 18px; }
+    .field label { display: block; margin-bottom: 8px; font-size: 12px; font-weight: 600; }
+    .field input, .field textarea { width: 100%; padding: 13px 14px; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--ink); font-size: 14px; outline-color: var(--sage-dark); }
+    .field textarea { min-height: 96px; resize: vertical; }
+    .field .hint { margin: 7px 0 0; font-size: 11px; line-height: 1.5; color: var(--muted); }
+    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+    .submit { width: 100%; justify-content: center; margin-top: 6px; }
+    .submit:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+    .form-error { margin: 14px 0 0; font-size: 12px; line-height: 1.5; color: #9b2c3f; }
+
+    .sum-line { display: grid; grid-template-columns: 1fr auto; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+    .sum-line h3 { margin: 0 0 4px; font-size: 12px; font-weight: 600; }
+    .sum-line p { margin: 0; font-size: 11px; color: var(--muted); }
+    .sum-line strong { font-size: 12px; }
+    .sum-empty { margin: 0 0 6px; font-size: 13px; line-height: 1.6; color: var(--muted); }
+    .sum-empty a { border-bottom: 1px solid var(--sage); }
+    .sum-totals { padding-top: 8px; }
+    .sum-totals div { display: flex; justify-content: space-between; gap: 15px; margin: 11px 0; font-size: 12px; color: var(--muted); }
+    .sum-totals strong { color: var(--ink); font-weight: 500; }
+    .sum-totals div:last-child { padding-top: 13px; border-top: 1px solid var(--line); font-size: 14px; color: var(--ink); }
+    .sum-totals div:last-child strong { font-weight: 700; }
+
+    .success { max-width: 620px; margin: 10px auto 0; text-align: center; }
+    .success h2 { font-size: clamp(30px, 4vw, 40px); }
+    .success p { margin: 0 0 24px; font-size: 16px; line-height: 1.65; color: #805b65; }
+    .success .primary-button { justify-content: center; }
+    .success:focus { outline: none; }
+
+    @media (max-width: 860px) {
+      .checkout-grid { grid-template-columns: 1fr; }
+      .summary-panel { position: static; order: -1; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="back-link" id="back-link" href="index.html">Back to shop</a>
+    <a class="brand" href="index.html"><span class="brand-leaf">❦</span>CJ Finds<small>Pre-loved. Re-loved. Yours</small></a>
+  </header>
+
+  <main class="checkout">
+    <div id="checkout-content">
+      <div class="checkout-intro">
+        <h1>Almost yours</h1>
+        <p>Share your details and our team will message you to confirm your order.</p>
+      </div>
+
+      <div class="checkout-grid">
+        <section class="panel" aria-labelledby="details-title">
+          <h2 id="details-title">Your details</h2>
+          <form id="order-form">
+            <div class="field">
+              <label for="name">Full name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone number</label>
+              <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" pattern="[0-9+\s\-]{7,20}" title="Use numbers only, for example 0917 123 4567" required>
+            </div>
+            <div class="field">
+              <label for="social">Social media account</label>
+              <input id="social" name="social_media" type="text" autocomplete="off" placeholder="Facebook, Instagram or TikTok name or link" required>
+              <p class="hint">Our team will message you here, so use an account you check often.</p>
+            </div>
+            <div class="field">
+              <label for="address">Delivery address</label>
+              <textarea id="address" name="address" autocomplete="street-address" placeholder="House no., street, barangay, city, province" required></textarea>
+            </div>
+
+            <!-- spam trap: real customers never see or tick this -->
+            <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <button class="primary-button submit delivery-btn" id="submit-btn" type="submit">Send Order Request</button>
+            <p class="form-error" id="form-error" role="alert" hidden></p>
+          </form>
+        </section>
+
+        <aside class="panel summary-panel" aria-labelledby="summary-title">
+          <h2 id="summary-title">Your bag</h2>
+          <div id="summary-items"></div>
+          <div class="sum-totals">
+            <div><span>Subtotal</span><strong id="sum-subtotal">₱0</strong></div>
+            <div><span>Total</span><strong id="sum-total">₱0</strong></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <section class="panel success" id="success" tabindex="-1" role="status" hidden>
+      <h2>Order request sent</h2>
+      <p>Our team will reach out to you via the social media account you provided. Please check your message request.</p>
+      <a class="primary-button" href="index.html">Back to the shop</a>
+    </section>
+  </main>
+
+  <!-- Must load before the script below. Refreshing this page empties the bag, like the shop pages. -->
+  <script src="bag-reset.js"></script>
+  <script type="module" src="order-save.js"></script>
+  <script type="module" src="checkout-gate.js"></script>
+  <script>
+    (function () {
+      "use strict";
+
+      var ACCESS_KEY = "3d82b345-6480-47b2-a8b1-786ad7a387d9"; // your Web3Forms access key
+      var CART_KEY = "cjfinds-cart";                           // same key shop.js saves the cart under
+      var SHOP_URL = "index.html";
+
+      var form = document.getElementById("order-form");
+      var submitBtn = document.getElementById("submit-btn");
+      var errorBox = document.getElementById("form-error");
+      var summaryItems = document.getElementById("summary-items");
+      
+      
+      // Mobile-friendly two-tap submission:
+      // First tap dismisses the keyboard; second tap submits.
+      var submitArmed = false;
+
+      function isEditableField(el) {
+        return !!(
+          el &&
+          el.matches &&
+          el.matches(
+            'textarea, input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]):not([type="hidden"])'
+          )
+        );
+      }
+
+      document.addEventListener("click", function (e) {
+        var hit = e.target && e.target.closest
+          ? e.target.closest("#submit-btn")
+          : null;
+
+        if (!hit || hit.disabled) return;
+
+        // Second tap: allow the existing checkout code to run.
+        if (submitArmed) {
+          submitArmed = false;
+          return;
+        }
+
+        // First tap: do not submit or start the truck animation.
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        submitArmed = true;
+
+        // Hide the mobile keyboard if a form field is focused.
+        var active = document.activeElement;
+        if (isEditableField(active)) {
+          active.blur();
+        }
+      }, true);
+
+      // If the customer changes any details, require the two taps again.
+      form.addEventListener("input", function () {
+        submitArmed = false;
+      });
+
+      form.addEventListener("change", function () {
+        submitArmed = false;
+      });
+
+      var money = function (v) {
+        return new Intl.NumberFormat("en-PH", { style: "currency", currency: "PHP", maximumFractionDigits: 0 }).format(v);
+      };
+
+      // "Back to shop" returns to the page the customer came from
+      try {
+        var back = document.getElementById("back-link");
+        if (document.referrer && new URL(document.referrer).origin === location.origin) back.href = document.referrer;
+      } catch (e) {}
+
+      // Read the bag that shop.js saved
+      var cart = [];
+      try { cart = JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch (e) { cart = []; }
+      if (!Array.isArray(cart)) cart = [];
+
+      var subtotal = cart.reduce(function (s, i) { return s + i.price * i.quantity; }, 0);
+      var total = subtotal;
+
+      function renderSummary() {
+        summaryItems.innerHTML = "";
+        if (!cart.length) {
+          var empty = document.createElement("p");
+          empty.className = "sum-empty";
+          empty.append("Your bag is empty. ");
+          var link = document.createElement("a");
+          link.href = SHOP_URL;
+          link.textContent = "Add something from the shop";
+          empty.append(link, " to place an order.");
+          summaryItems.appendChild(empty);
+          submitBtn.disabled = true;
+        } else {
+          cart.forEach(function (item) {
+            var row = document.createElement("div");
+            row.className = "sum-line";
+            var left = document.createElement("div");
+            var h = document.createElement("h3"); h.textContent = item.name;
+            var p = document.createElement("p"); p.textContent = item.quantity + " × " + money(item.price);
+            left.append(h, p);
+            var cost = document.createElement("strong"); cost.textContent = money(item.price * item.quantity);
+            row.append(left, cost);
+            summaryItems.appendChild(row);
+          });
+        }
+        document.getElementById("sum-subtotal").textContent = money(subtotal);
+        document.getElementById("sum-total").textContent = money(total);
+      }
+
+      function showError(message) {
+        errorBox.textContent = message;
+        errorBox.hidden = false;
+      }
+
+      function showSuccess() {
+        // Order confirmed: empty the whole bag (saved cart + bag number)
+        try {
+          if (window.CJBagClearAll) window.CJBagClearAll();
+          else localStorage.removeItem(CART_KEY);
+        } catch (e) {}
+        cart = [];
+        document.getElementById("checkout-content").hidden = true;
+        var box = document.getElementById("success");
+        box.hidden = false;
+        window.scrollTo(0, 0);
+        box.focus();
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (!cart.length) return;
+        errorBox.hidden = true;
+
+        var payload = {};
+        new FormData(form).forEach(function (value, key) {
+          payload[key] = typeof value === "string" ? value.trim() : value;
+        });
+        payload.access_key = ACCESS_KEY;
+        payload.subject = "New CJ Finds order request";
+        payload.from_name = "CJ Finds website";
+        payload.order_items = cart.map(function (i) {
+          return i.quantity + " × " + i.name + " (" + money(i.price) + " each) = " + money(i.price * i.quantity);
+        }).join("\n");
+        payload.order_total = money(total);
+
+        // Button zooms to fill the screen, then the pink truck drives across
+        if (window.sending) return;
+        window.sending = true;
+        var truck = window.CJDeliveryButton.drive(submitBtn);
+
+        // 1) Save the order to CJ Orders (Firestore). Only verified customers can do this.
+        // 2) Only after it is saved, send the email copy through Web3Forms.
+        var saved = (window.CJSaveOrder && !payload.botcheck)
+          ? window.CJSaveOrder({
+              name: payload.name,
+              phone: payload.phone,
+              social: payload.social_media,
+              address: payload.address,
+              items: cart.map(function (i) { return { name: i.name, price: i.price, quantity: i.quantity }; }),
+              total: total
+            }).then(function () { return { ok: true }; })
+              .catch(function (err) { console.error("CJ Orders: could not save the order", err); return { ok: false, err: err }; })
+          : Promise.resolve({ ok: false });
+
+        var done = saved.then(function (r) {
+          if (!r.ok) return r;
+          return fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            body: JSON.stringify(payload)
+          })
+            .then(function (res) { return res.json(); })
+            .catch(function () {})            // the email copy is a bonus; the saved order is what counts
+            .then(function () { return r; });
+        });
+
+        // Wait for the truck to finish its drive too
+        Promise.all([done, truck]).then(function (results) {
+          var r = results[0];
+          if (r.ok) {
+            showSuccess();
+            // truck drives off to the right while "Order request sent" slides in from the left
+            window.CJDeliveryButton.finish(submitBtn, document.getElementById("success"));
+          
+} else {
+  window.CJDeliveryButton.reset(submitBtn);
+  window.sending = false;
+
+  // Keep the actual error visible in the browser console.
+  console.error("CJ Finds order submission failed:", r.err);
+
+  var code = r.err && r.err.code ? r.err.code : "";
+  var message = r.err && r.err.message ? r.err.message : "";
+
+  if (code === "permission-denied") {
+    showError(
+      "Your order could not be saved because Firestore rejected the request. " +
+      "This does not necessarily mean your email is unverified. Please try again or contact support."
+    );
+  } else if (
+    message.toLowerCase().includes("not verified") ||
+    message.toLowerCase().includes("verify your email")
+  ) {
+    errorBox.innerHTML =
+      'Please <a href="account.html?next=checkout.html" ' +
+      'style="text-decoration:underline">verify your email</a> before ordering.';
+    errorBox.hidden = false;
+  } else if (code === "unauthenticated") {
+    showError("Your session may have expired. Please log in again.");
+  } else {
+    showError(
+      "We couldn't save your order. Please try again. If the problem continues, contact support."
+    );
+  }
+}
+
+        });
+      });
+
+      renderSummary();
+    })();
+  </script>
+  <script src="products.js" defer></script>
+  <script src="chat-faq.js" defer></script>
+  <script src="chatbot.js" defer></script>
+  <script src="delivery-btn.js"></script>
+</body>
+</html>
