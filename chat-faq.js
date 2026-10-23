@@ -47,7 +47,6 @@
       "How does your shipping work?",
       "Show me items under ₱300.",
       "What sizes do you have?",
-      "Can I have my pre-loved items sold on your website?",
       "How do I order?"
     ],
 
@@ -63,9 +62,6 @@
        
       { keywords: ["How does your shipping work?"],
         answer: "Buyer will pay for the shipping. We use J&T as our carrier for our deliveries, that's why it is very important to indicate your address. As much as possible, we will do our best to have low fees for shipping" },
-
-      { keywords: ["Can I have my pre-loved items sold on your website?"],
-        answer: "If you are interested in renting a space in our website, please contact us directly on Facebook: JM Descartin or Christian Tumulak. We look forward to do business with you!"},
 
       { keywords: ["thank you", "thanks", "thank u", "salamat", "ty", "much appreciated"],
         answer: "You're welcome! 💗 Anything else I can help you find?" },
