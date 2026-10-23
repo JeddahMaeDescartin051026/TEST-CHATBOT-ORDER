@@ -2,13 +2,17 @@
   import {
     getFirestore,
     collection,
-    addDoc,
+    doc,
+    runTransaction,
     serverTimestamp
   } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
   import { app, auth } from "./auth.js";
 
   const db = getFirestore(app);
+
+  // Every order gets the next number: 051026-1, 051026-2, 051026-3 ...
+  const ORDER_PREFIX = "051026-";
 
   window.CJSaveOrder = async function (order) {
     await auth.authStateReady();
@@ -38,18 +42,34 @@
       );
     }
 
-    // Save the order only after verification succeeds.
-    return addDoc(collection(db, "orders"), {
-      uid: user.uid,
-      email: user.email,
-      name: order.name,
-      phone: order.phone,
-      social: order.social,
-      address: order.address,
-      items: order.items,
-      total: order.total,
-      status: "NOT COMPLETED",
-      note: "",
-      createdAt: serverTimestamp()
+    // Take the next order number and save the order in ONE transaction,
+    // so two customers can never get the same number.
+    const counterRef = doc(db, "counters", "orders");
+    const orderRef = doc(collection(db, "orders"));
+
+    const result = await runTransaction(db, async (tx) => {
+      const snap = await tx.get(counterRef);
+      const next = (snap.exists() ? Number(snap.data().last) || 0 : 0) + 1;
+      const orderNo = ORDER_PREFIX + next;
+
+      tx.set(counterRef, { last: next });
+      tx.set(orderRef, {
+        uid: user.uid,
+        email: user.email,
+        name: order.name,
+        phone: order.phone,
+        social: order.social,
+        address: order.address,
+        items: order.items,
+        total: order.total,
+        status: "NOT COMPLETED",
+        note: "",
+        orderNo: orderNo,
+        orderSeq: next,
+        createdAt: serverTimestamp()
+      });
+      return { id: orderRef.id, orderNo: orderNo };
     });
+
+    return result;
   };

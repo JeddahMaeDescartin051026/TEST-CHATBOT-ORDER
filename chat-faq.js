@@ -127,7 +127,7 @@
 
       { keywords: ["track", "tracking", "track my order", "track order", "where is my order", "order status", "status of my order", "my order"],
         priority: true,
-        answer: "After you submit your order, our team will update you through Messenger or Instagram, so please check your message request. If you haven't heard from us yet, message our team there with your name and what you ordered." },
+        answer: "After you submit your order, our team will update you through Messenger or Instagram, so please check your message request. If you haven't heard from us yet, message our team there with your name and what you ordered. You can also type your order number (for example 051026-1) here to check its status." },
 
       { keywords: ["account", "login", "log in", "sign in", "sign up", "register", "password", "create account"],
         answer: "No account needed! Just add items to your bag and check out." },

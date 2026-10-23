@@ -47,6 +47,10 @@
     .success p { margin: 0 0 24px; font-size: 16px; line-height: 1.65; color: #805b65; }
     .success .primary-button { justify-content: center; }
     .success:focus { outline: none; }
+    .success .order-no { margin: 0 0 24px; padding: 16px 20px; border-radius: 18px; background: rgba(238,213,208,.45); color: #603344; }
+    .success .order-no span { display: block; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; font-weight: 600; color: #783b50; }
+    .success .order-no strong { display: block; margin: 4px 0 6px; font-family: "Playfair Display", serif; font-size: clamp(28px, 6vw, 36px); font-weight: 500; color: #783b50; }
+    .success .order-no small { display: block; font-size: 13px; line-height: 1.5; color: #805b65; }
 
     @media (max-width: 860px) {
       .checkout-grid { grid-template-columns: 1fr; }
@@ -111,6 +115,11 @@
     <section class="panel success" id="success" tabindex="-1" role="status" hidden>
       <h2>Order request sent</h2>
       <p>Our team will reach out to you via the social media account you provided. Please check your message request.</p>
+      <p class="order-no" id="order-no" hidden>
+        <span>Your order number</span>
+        <strong id="order-no-value"></strong>
+        <small>Please keep this number. You can type it in our chat to check your order.</small>
+      </p>
       <a class="primary-button" href="index.html">Back to the shop</a>
     </section>
   </main>
@@ -234,7 +243,7 @@
         errorBox.hidden = false;
       }
 
-      function showSuccess() {
+      function showSuccess(orderNo) {
         // Order confirmed: empty the whole bag (saved cart + bag number)
         try {
           if (window.CJBagClearAll) window.CJBagClearAll();
@@ -243,6 +252,10 @@
         cart = [];
         document.getElementById("checkout-content").hidden = true;
         var box = document.getElementById("success");
+        if (orderNo) {
+          document.getElementById("order-no-value").textContent = orderNo;
+          document.getElementById("order-no").hidden = false;
+        }
         box.hidden = false;
         window.scrollTo(0, 0);
         box.focus();
@@ -280,7 +293,7 @@
               address: payload.address,
               items: cart.map(function (i) { return { name: i.name, price: i.price, quantity: i.quantity }; }),
               total: total
-            }).then(function () { return { ok: true }; })
+            }).then(function (res) { return { ok: true, orderNo: res && res.orderNo }; })
               .catch(function (err) { console.error("CJ Orders: could not save the order", err); return { ok: false, err: err }; })
           : Promise.resolve({ ok: false });
 
@@ -300,7 +313,7 @@
         Promise.all([done, truck]).then(function (results) {
           var r = results[0];
           if (r.ok) {
-            showSuccess();
+            showSuccess(r.orderNo);
             // truck drives off to the right while "Order request sent" slides in from the left
             window.CJDeliveryButton.finish(submitBtn, document.getElementById("success"));
           

@@ -212,6 +212,9 @@
       return { text: a, chips: chips };
     }
   
+    /* Messages about checking an order (order number, "order status", "track order"...) go to order-lookup.js */
+    var ORDER_HINT = /051026\s*-\s*\d|^\s*order\s*[?.!]*\s*$|order status|track(ing)?( my)? order|order (number|no)\b|where('?s| is) my order|check (my )?order/i;
+
     /* ---------- THE BRAIN: picks the reply for one question ---------- */
     function answer(question) {
       var n = norm(question);
@@ -417,13 +420,19 @@
       log.appendChild(typing);
       scrollDown();
   
-      var reply = answer(q);
-      window.setTimeout(function () {
+      var replyReady = ORDER_HINT.test(q)
+        ? import("./order-lookup.js")
+            .then(function (m) { return m.getOrderReply(q); })
+            .catch(function () { return answer(q); })   /* if the lookup can't load, use the normal answer */
+        : Promise.resolve(answer(q));
+      var minWait = new Promise(function (done) { window.setTimeout(done, 450); });
+      Promise.all([replyReady, minWait]).then(function (res) {
+        var reply = res[0];
         typing.remove();
         addMsg("bot", reply.text);
         var chips = reply.chips === true ? CFG.suggestions : reply.chips;
         addChips(chips && chips.length ? chips : MENU_CHIP);
-      }, 450);
+      });
     }
   
     function setOpen(open, focus) {
