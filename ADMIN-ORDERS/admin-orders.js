@@ -53,6 +53,7 @@ const el = {
   toDate: $("toDate"),
   statusFilter: $("statusFilter"),
   searchBox: $("searchBox"),
+  itemBox: $("itemBox"),
   applyBtn: $("applyBtn"),
   chips: $("chips"),
   sumCount: $("sumCount"),
@@ -217,6 +218,7 @@ el.chips.addEventListener("click", (e) => {
 el.applyBtn.addEventListener("click", loadOrders);
 el.statusFilter.addEventListener("change", render);
 el.searchBox.addEventListener("input", render);
+el.itemBox.addEventListener("input", render);
 
 /* ---------- Load from Firestore ---------- */
 async function loadOrders() {
@@ -265,9 +267,19 @@ async function loadOrders() {
 function visibleOrders() {
   const status = el.statusFilter.value;
   const q = el.searchBox.value.trim().toLowerCase();
+  const itemQ = el.itemBox.value.trim().toLowerCase();
 
   return allOrders.filter((o) => {
     if (status && o.status !== status) return false;
+    if (itemQ) {
+      const items = Array.isArray(o.items) ? o.items : [];
+      const hasItem = items.some((it) =>
+        String(it && typeof it === "object" ? it.name || it.title || "" : it)
+          .toLowerCase()
+          .includes(itemQ)
+      );
+      if (!hasItem) return false;
+    }
     if (!q) return true;
     return [orderLabel(o), o.name, o.email, o.phone, o.social, o.id]
       .some((v) => String(v || "").toLowerCase().includes(q));
