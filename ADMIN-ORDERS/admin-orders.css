@@ -237,3 +237,13 @@ input:focus, select:focus { border-color: var(--rose); }
 }
 
 .o-no { font-weight: 700; color: var(--rose-dark); margin-right: .5rem; }
+
+/* SOLD tags in the order breakdown */
+.items .side { display: inline-flex; align-items: center; gap: .5rem; white-space: nowrap; }
+.tag { padding: 2px 9px; border-radius: 999px; font-size: .7rem; font-weight: 700; letter-spacing: .06em; }
+.tag-sold { background: var(--rose-dark); color: #fff; }
+.tag-mine { background: #e5f1e9; color: #2f6b4d; }
+.items li.is-sold .pname { opacity: .6; text-decoration: line-through; }
+.pick-label { display: inline-flex; align-items: center; gap: .55rem; cursor: pointer; }
+.pick { width: 1.05rem; height: 1.05rem; accent-color: var(--rose); cursor: pointer; }
+.pick:disabled { cursor: not-allowed; }
